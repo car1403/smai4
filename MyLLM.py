@@ -10,10 +10,10 @@ from openai import OpenAI
 
 load_dotenv()
 
-# OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
-# GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
-GOOGLE_API_KEY = st.secrets["GOOGLE_API_KEY"]
-OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
+GOOGLE_API_KEY = os.getenv("GOOGLE_API_KEY")
+# GOOGLE_API_KEY = st.secrets["GOOGLE_API_KEY"]
+# OPENAI_API_KEY = st.secrets["OPENAI_API_KEY"]
 
 def openAiModel():
     client = OpenAI(api_key=OPENAI_API_KEY)
