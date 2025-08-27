@@ -28,6 +28,9 @@ if uploaded_file :
         result = chain({"question": query, "chat_history": st.session_state['history']})
         st.session_state['history'].append((query, result["answer"]))
 
+
+
+
     if 'history' not in st.session_state:
         st.session_state['history'] = [("안녕하세요!","안녕하세요! " + uploaded_file.name + "에 관해 질문주세요." )]
 

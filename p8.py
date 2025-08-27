@@ -1,13 +1,21 @@
 import streamlit as st
 from langchain.chains.conversation.base import ConversationChain
+from langchain.memory import ConversationBufferMemory, ConversationSummaryMemory
 from streamlit_chat import message
 from MyLCH import getOpenAI
 
 st.markdown("Page 8")
 st.sidebar.markdown("Clicked Page 8")
 
-chain = ConversationChain( llm=getOpenAI(), verbose=False)
+if 'MEMORY' not in st.session_state:
+    memory = ConversationSummaryMemory(
+        llm = getOpenAI(),
+        return_messages=True
+    )
+    # add to the session
+    st.session_state['MEMORY'] = memory
 
+chain =  ConversationChain( llm=getOpenAI(),  memory=st.session_state['MEMORY'] )
 def conversational_chat(query):  # 질문을 LLM에 전달 하고 결과를 받는다
     result = chain.predict(input=query)
     st.session_state['chathistory'].append((query, result))
@@ -32,6 +40,7 @@ with container:
         conversational_chat(user_input)
     if st.button("Clear"):
         init_chathistory()
+
 
 # 답변 영역
 if st.session_state['chathistory']:
