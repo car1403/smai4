@@ -1,6 +1,7 @@
 import tempfile
 import streamlit as st
 from langchain.chains.conversational_retrieval.base import ConversationalRetrievalChain
+from langchain.memory import ConversationSummaryMemory
 from langchain_community.document_loaders import PyPDFLoader
 from langchain_community.embeddings import OpenAIEmbeddings
 from langchain_community.vectorstores import FAISS
@@ -21,6 +22,8 @@ if uploaded_file :
     data = loader.load()
     embeddings = OpenAIEmbeddings()
     vectors = FAISS.from_documents(data, embeddings)
+
+
 
     chain = ConversationalRetrievalChain.from_llm(llm = getOpenAI(), retriever=vectors.as_retriever())
 
